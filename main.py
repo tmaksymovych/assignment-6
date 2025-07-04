@@ -2,11 +2,11 @@ import yfinance as yf
 import pandas as pd
 
 available_stocks = ["AAPL", "TSLA", "GOOGL", "MSFT", "AMZN"]
-stock_name = input(f"Choose one of actions from list: {', '.join(available_stocks)} : ")
+stock_name = input(f"Choose one of stocks from the list:\n{', '.join(available_stocks)}\n  ")
 while True:
     if stock_name not in available_stocks:
         print("Error: Please choose a stock from the list.")
-        stock_name = input(f"Choose one of actions from list: {', '.join(available_stocks)} : ")
+        stock_name = input(f"Choose one of stocks from the list:\n{', '.join(available_stocks)}\n  ")
     else:
         ticker = yf.Ticker(f"{stock_name}")
         data = ticker.history(period="1y")
@@ -30,7 +30,7 @@ def rolling_mean():
 
 def run_bot():
         try:
-            balance = float(input(f"Sum which you want to deposit:\n"))
+            balance = float(input(f"Enter the amount you would like to deposit($):\n"))
         except ValueError:
             print("Invalid input. Enter another sum")
             return
@@ -50,10 +50,10 @@ def run_bot():
             final_balance = round(number_of_stocks * data["Close"].iloc[-1],2)
         else:
             final_balance = round(balance,2)
-        print(f"Initial balance: {initial_balance}$")
-        print(f"Final balance: {final_balance}$")
+        print(f"Initial balance: {initial_balance:,.0f}$")
+        print(f"Final balance: {final_balance:,.0f}$")
         profit = round(final_balance - initial_balance,2)
-        print(f"Profit: {profit}$")
+        print(f"Profit: {profit:,.0f}$")
 
 rolling_mean()
 run_bot()
